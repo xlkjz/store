@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Przykładowe gradientowe tło */
+  min-height: 100vh;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25); 
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    padding: 1rem 2rem;
+    color: white;
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0 auto;
+    transition: color 0,.3s;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.nav-links a:hover {
+    color: lightpink;
+}
+.hamburger {
+  display: none; /* Ukrywa przycisk na dużych ekranach */
+  flex-direction: column; /* Układa paski w pionie jeden pod drugim */
+  gap: 5px; /* Odstęp 5px między paskami */
+  background: none; /* Usuwa domyślne tło przycisku */
+  border: none; /* Usuwa domyślną ramkę przycisku */
+  cursor: pointer; /* Zmienia kursor na "łapkę" po najechaniu */
+}
+
+.bar {
+  width: 25px; /* Szerokość pojedynczej kreski */
+  height: 3px; /* Grubość pojedynczej kreski */
+  background-color: white; /* Biały kolor kreski */
+  border-radius: 2px; /* Lekkie zaokrąglenie rogów kreski */
+  transition: all 0.3s ease; /* Płynna zmiana właściwości w 0.3 sekundy */
+}
+
+/* Wersja mobilna (ekrany o szerokości mniejszej lub równej 768px) */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Pokazuje przycisk hamburgera na małych ekranach */
+  }
+
+  .nav-links {
+    position: absolute; /* Wyciąga menu ze zwykłego przepływu strony */
+    top: 60px; /* Umieszcza menu pod pasek nawigacji */
+    right: -100%; /* Chowa menu całkowicie poza prawą krawędź ekranu */
+    flex-direction: column; /* Zmienia układ linków z poziomego na pionowy */
+    background-color: #1a1a1a; /* Tło wysuwanego menu mobilnego */
+    width: 100%; /* Menu zajmuje pełną szerokość ekranu */
+    text-align: center; /* Wyśrodkowuje tekst linków */
+    padding: 2rem 0; /* Górny i dolny odstęp wewnątrz menu mobilnego */
+    transition: right 0.4s ease; /* Płynne wysuwanie menu z prawej strony (0.4 sekundy) */
+  }
+
+  /* Klasa dodawana przez JavaScript, która wysuwa menu */
+  .nav-links.active {
+    right: 0; /* Przesuwa menu do krawędzi ekranu (wyświetla je) */
+  }
+}
