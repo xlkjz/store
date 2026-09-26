@@ -1,80 +1,410 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 body {
-   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Przykładowe gradientowe tło */
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #cc00ff 0%, #007da7 50%, #ff0000 100%);
+  min-height: 200vh; 
+  padding-top: 20px;
 }
+
+/* ==================== NAWIGACJA (LIQUID GLASS) ==================== */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25); 
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    padding: 1rem 2rem;
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
 }
+
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
 }
+
 .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    margin: 0 auto;
-    transition: color 0,.3s;
+  display: flex;
+  list-style: none;
+  gap: 2rem;
 }
+
 .nav-links a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: opacity 0.3s;
 }
+
 .nav-links a:hover {
-    color: lightpink;
+  opacity: 0.7;
 }
+
 .hamburger {
-  display: none; /* Ukrywa przycisk na dużych ekranach */
-  flex-direction: column; /* Układa paski w pionie jeden pod drugim */
-  gap: 5px; /* Odstęp 5px między paskami */
-  background: none; /* Usuwa domyślne tło przycisku */
-  border: none; /* Usuwa domyślną ramkę przycisku */
-  cursor: pointer; /* Zmienia kursor na "łapkę" po najechaniu */
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
 }
 
 .bar {
-  width: 25px; /* Szerokość pojedynczej kreski */
-  height: 3px; /* Grubość pojedynczej kreski */
-  background-color: white; /* Biały kolor kreski */
-  border-radius: 2px; /* Lekkie zaokrąglenie rogów kreski */
-  transition: all 0.3s ease; /* Płynna zmiana właściwości w 0.3 sekundy */
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
-/* Wersja mobilna (ekrany o szerokości mniejszej lub równej 768px) */
+/* ==================== POPUP PROMOCYJNY ==================== */
+.promo-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+  visibility: hidden;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 30px 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  color: white;
+  z-index: 9999;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.promo-box.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.promo-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.promo-close:hover {
+  opacity: 1;
+}
+
+.promo-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: #00adb5;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.promo-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  z-index: 9998;
+}
+
+.promo-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==================== SLIDER (BANER) ==================== */
+.banner-slider {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  height: 320px;
+  margin: 40px auto;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.slides-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  position: relative;
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.slide-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.slide-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+}
+
+.banner-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  background-color: #00adb5;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* Strzałki nawigacji */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.slider-arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.slider-arrow.prev { left: 15px; }
+.slider-arrow.next { right: 15px; }
+
+/* Kropki na dole banera */
+.dots-container {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  background: #00adb5;
+  width: 24px;
+  border-radius: 10px;
+}
+
+/* ==================== RESPONSYWNOŚĆ (TABLETY I TELEFONY) ==================== */
 @media (max-width: 768px) {
+  /* HAMBURGER & MENU */
   .hamburger {
-    display: flex; /* Pokazuje przycisk hamburgera na małych ekranach */
+    display: flex;
   }
-
   .nav-links {
-    position: absolute; /* Wyciąga menu ze zwykłego przepływu strony */
-    top: 60px; /* Umieszcza menu pod pasek nawigacji */
-    right: -100%; /* Chowa menu całkowicie poza prawą krawędź ekranu */
-    flex-direction: column; /* Zmienia układ linków z poziomego na pionowy */
-    background-color: #1a1a1a; /* Tło wysuwanego menu mobilnego */
-    width: 100%; /* Menu zajmuje pełną szerokość ekranu */
-    text-align: center; /* Wyśrodkowuje tekst linków */
-    padding: 2rem 0; /* Górny i dolny odstęp wewnątrz menu mobilnego */
-    transition: right 0.4s ease; /* Płynne wysuwanie menu z prawej strony (0.4 sekundy) */
+    position: absolute;
+    top: 70px;
+    right: -100%; 
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    background: rgba(15, 32, 39, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    transition: right 0.4s ease;
+  }
+  .nav-links.active {
+    right: 0; 
   }
 
-  /* Klasa dodawana przez JavaScript, która wysuwa menu */
-  .nav-links.active {
-    right: 0; /* Przesuwa menu do krawędzi ekranu (wyświetla je) */
+  /* BANER */
+  .banner-slider {
+    height: 250px;
+    margin: 20px auto;
+  }
+
+  .slide-content {
+    padding: 12px 16px;
+    max-width: 85%;
+  }
+
+  .slide-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .slide-content p {
+    font-size: 0.85rem;
+  }
+
+  .slider-arrow {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .slider-arrow.prev { left: 8px; }
+  .slider-arrow.next { right: 8px; }
+}
+
+@media (max-width: 480px) {
+
+  /* POPUP JAKO PANEL DOLNY (BOTTOM SHEET) */
+  .promo-box {
+    top: auto;
+    bottom: 15px; /* Przyklejony do dołu zamiast środka */
+    left: 50%;
+    transform: translateX(-50%) scale(0.9); /* Wycentrowany w poziomie */
+    width: 92%;
+    max-width: none;
+    padding: 16px 14px 14px 14px;
+    border-radius: 16px;
+    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .promo-box.show {
+    transform: translateX(-50%) scale(1);
+  }
+
+  .promo-box h3 {
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+
+  .promo-box p {
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .promo-btn {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    margin-top: 8px;
+    font-size: 0.85rem;
+  }
+
+  .promo-close {
+    top: 4px;
+    right: 8px;
+    font-size: 22px;
+    padding: 6px;
+  }
+
+  /* POPRAWKI DLA BANERA SLIDERA */
+  .banner-slider {
+    height: 180px; /* Kompaktowa wysokość slidera */
+    width: 92%;
+    margin: 15px auto;
+    border-radius: 12px;
+  }
+
+  .slide-content {
+    padding: 8px 12px;
+    max-width: 85%;
+    background: rgba(0, 0, 0, 0.6); /* Bardziej kontrastowe tło */
+  }
+
+  .slide-content h2 {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+
+  .slide-content p {
+    font-size: 0.7rem;
+    margin-bottom: 4px;
+  }
+
+  .banner-btn {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
+  .slider-arrow {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .dots-container {
+    bottom: 5px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .dot.active {
+    width: 12px;
   }
 }
