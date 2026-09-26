@@ -37,8 +37,10 @@ html, body {
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+font-family: 'Permanent Marker', cursive;
+  font-size: 1.8rem; /* Rozmiar dopasowany do stylizowanego napisu */
+  font-weight: normal; /* Ta czcionka sama w sobie jest gruba */
+  letter-spacing: 1px; /* Lekki odstęp nadaje lepszy efekt taga */
   color: #ffffff;
 }
 
